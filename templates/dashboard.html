@@ -187,47 +187,72 @@ endblock %} {% block content %}
       <div class="feed-header">
         <h2 class="section-title"><i class="fas fa-stream"></i> Your Feed</h2>
         <a href="/journal" class="btn-primary btn-sm">
-          <i class="fas fa-plus"></i> New
+          <i class="fas fa-plus"></i> New Post
         </a>
       </div>
       <div class="posts">
         {% for post in demo_posts[-6:] %}
-        <article class="feed-post">
-          <div class="post-header">
-            <img
-              src="https://ui-avatars.com/api/?name={{ post.user }}&background=1e3a8a&color=fff&size=40&rounded=true"
-              class="post-avatar"
-              alt="{{ post.user }}"
-            />
-            <div class="post-meta">
-              <strong>{{ post.user }}</strong>
-              <small>{{ post.date }}</small>
+        <article class="feed-post social">
+          <div class="post-header social">
+            <div class="post-user-info">
+              <div class="avatar-wrapper">
+                <img
+                  src="https://ui-avatars.com/api/?name={{ post.user }}&background=1e3a8a&color=fff&size=48&rounded=true"
+                  class="post-avatar social"
+                  alt="{{ post.user }}"
+                />
+                <span class="online-status"></span>
+              </div>
+              <div class="post-meta social">
+                <strong>{{ post.user }}</strong>
+                <span class="post-time">{{ post.date }}</span>
+              </div>
             </div>
             <span class="emotion-badge {{ post.emotion|lower }}">
               {{ post.emotion }}
             </span>
           </div>
-          <p class="post-text">{{ post.text }}</p>
-          <div class="post-footer">
-            <button class="post-action">
-              <i class="far fa-thumbs-up"></i> {{ post.likes }}
+          <div class="post-content">
+            <p class="post-text social">{{ post.text }}</p>
+          </div>
+          <div class="post-stats-bar">
+            <div class="post-stat-item">
+              <i class="fas fa-heart" style="color: #ef4444"></i>
+              <span>{{ post.likes }} likes</span>
+            </div>
+            <div class="post-stat-item">
+              <i class="fas fa-comment" style="color: #3b82f6"></i>
+              <span>0 comments</span>
+            </div>
+            <div class="post-stat-item accuracy">
+              <i class="fas fa-brain" style="color: #8b5cf6"></i>
+              <span>{{ post.confidence }}% AI</span>
+            </div>
+          </div>
+          <div class="post-actions-bar social">
+            <button class="post-action-btn">
+              <i class="far fa-heart"></i> Like
             </button>
-            <button class="post-action">
-              <i class="far fa-comment"></i>
+            <button class="post-action-btn">
+              <i class="far fa-comment"></i> Comment
             </button>
-            <button class="post-action">
-              <i class="fas fa-share"></i>
+            <button class="post-action-btn">
+              <i class="far fa-share-square"></i> Share
             </button>
-            <span class="confidence">{{ post.confidence }}% accurate</span>
           </div>
         </article>
         {% endfor %}
       </div>
       {% if demo_posts|length == 0 %}
-      <div class="empty-feed">
-        <i class="fas fa-feather-alt fa-4x"></i>
+      <div class="empty-feed social">
+        <div class="empty-icon">
+          <i class="fas fa-feather-alt"></i>
+        </div>
         <h3>No posts yet</h3>
-        <p>Share your first mood post via <a href="/journal">Journal</a></p>
+        <p>Share your first mood post and start your wellness journey</p>
+        <a href="/journal" class="btn-primary">
+          <i class="fas fa-pen"></i> Write Journal
+        </a>
       </div>
       {% endif %}
     </div>

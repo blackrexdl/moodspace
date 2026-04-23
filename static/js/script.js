@@ -156,6 +156,22 @@ document.addEventListener("DOMContentLoaded", function () {
     el.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
     observer.observe(el);
   });
+
+  // Feed Like Button Functionality
+  document.querySelectorAll(".post-action-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const icon = this.querySelector("i");
+      if (this.classList.contains("liked")) {
+        this.classList.remove("liked");
+        icon.classList.remove("fas");
+        icon.classList.add("far");
+      } else {
+        this.classList.add("liked");
+        icon.classList.remove("far");
+        icon.classList.add("fas");
+      }
+    });
+  });
 });
 
 // Navbar toggle function (legacy)
