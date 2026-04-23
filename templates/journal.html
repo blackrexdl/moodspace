@@ -1,40 +1,118 @@
 {% extends "layout.html" %} {% block title %}Mood Journal - MoodSpace Pro{%
 endblock %} {% block content %}
-<div class="journal-container card">
-  <div class="page-header">
-    <h1><i class="fas fa-book-open"></i> Mood Journal</h1>
-    <p>Your private space to reflect. Posts auto-analyzed + shared to feed.</p>
+<div class="journal-page">
+  <!-- Hero -->
+  <div class="journal-hero">
+    <div class="journal-hero-content">
+      <div class="journal-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h1>Mood Journal</h1>
+      <p>
+        Write your thoughts, express your feelings, let AI understand your
+        emotions
+      </p>
+    </div>
   </div>
 
-  <form method="POST" action="/post" id="journal-form" class="journal-form">
-    <div class="form-group">
-      <label for="journal-text"
-        ><i class="fas fa-edit"></i> What's on your mind?</label
-      >
-      <textarea
-        id="journal-text"
-        name="text"
-        placeholder="Write your thoughts, feelings, or daily reflection... (AI analyzes emotion automatically)"
-        required
-        rows="8"
-      ></textarea>
-      <div id="emotion-preview" class="emotion-preview" style="display: none">
-        <span>Detected Emotion: <span id="preview-emotion"></span></span>
+  <div class="journal-layout">
+    <!-- Writing Area -->
+    <div class="journal-write-card">
+      <div class="write-header">
+        <div class="write-avatar">
+          <img
+            src="https://ui-avatars.com/api/?name={{ user }}&background=1e3a8a&color=fff&size=40&rounded=true"
+            alt="{{ user }}"
+          />
+          <span class="write-user">{{ user }}</span>
+        </div>
+        <span class="write-privacy"> <i class="fas fa-globe"></i> Public </span>
+      </div>
+
+      <form method="POST" action="/post" id="journal-form" class="journal-form">
+        <div class="form-group">
+          <textarea
+            id="journal-text"
+            name="text"
+            placeholder="What's on your mind today? Share your thoughts, feelings, or daily reflection..."
+            required
+            rows="6"
+          ></textarea>
+        </div>
+
+        <!-- Emotion Preview -->
+        <div
+          id="emotion-preview"
+          class="emotion-preview-journal"
+          style="display: none"
+        >
+          <div class="preview-badge" id="preview-badge">
+            <span class="preview-emoji" id="preview-emoji">🤔</span>
+            <div class="preview-info">
+              <span class="preview-label">Detected Emotion</span>
+              <span class="preview-value" id="preview-value">Analyzing...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="journal-actions">
+          <div class="action-tools">
+            <button type="button" class="tool-btn" title="Add Photo">
+              <i class="fas fa-image"></i>
+            </button>
+            <button type="button" class="tool-btn" title="Add Feeling">
+              <i class="fas fa-smile"></i>
+            </button>
+            <button type="button" class="tool-btn" title="Add Location">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+          </div>
+          <div class="submit-area">
+            <a href="/dashboard" class="btn-cancel">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn-post">
+              <i class="fas fa-paper-plane"></i> Post to Feed
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tips Sidebar -->
+    <div class="journal-sidebar">
+      <div class="sidebar-card">
+        <h3><i class="fas fa-lightbulb"></i> Writing Tips</h3>
+        <ul class="tips-list">
+          <li><i class="fas fa-check"></i> Be honest about your feelings</li>
+          <li><i class="fas fa-check"></i> Describe specific events</li>
+          <li>
+            <i class="fas fa-check"></i> Use emotion words (happy, sad, anxious)
+          </li>
+          <li><i class="fas fa-check"></i> Reflect on why you feel this way</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card emotions-guide">
+        <h3><i class="fas fa-heart"></i> Emotions We Detect</h3>
+        <div class="emotion-chips">
+          <span class="emo-chip happy">😊 Happy</span>
+          <span class="emo-chip sad">😢 Sad</span>
+          <span class="emo-chip angry">😠 Angry</span>
+          <span class="emo-chip calm">😌 Calm</span>
+          <span class="emo-chip anxious">😰 Anxious</span>
+          <span class="emo-chip neutral">😐 Neutral</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3><i class="fas fa-shield-alt"></i> Privacy</h3>
+        <p>
+          Your journal entries are analyzed by AI to detect emotions. Posts are
+          shared to your feed to connect with the community.
+        </p>
       </div>
     </div>
-    <div class="form-actions">
-      <button type="submit" class="btn-primary full-width">
-        <i class="fas fa-paper-plane"></i> Post to Feed & Analyze
-      </button>
-      <a href="/dashboard" class="btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back to Dashboard
-      </a>
-    </div>
-  </form>
-
-  <div class="recent-entries">
-    <h3>Recent Entries</h3>
-    <p>Your posts appear in Dashboard Feed. Start writing!</p>
   </div>
 </div>
 
@@ -42,23 +120,60 @@ endblock %} {% block content %}
   document.addEventListener("DOMContentLoaded", function () {
     const textarea = document.getElementById("journal-text");
     const preview = document.getElementById("emotion-preview");
-    const emotionSpan = document.getElementById("preview-emotion");
+    const previewValue = document.getElementById("preview-value");
+    const previewEmoji = document.getElementById("preview-emoji");
+    const previewBadge = document.getElementById("preview-badge");
 
-    // Preview emotion on type (demo - call /analyze API)
+    const emotionMap = {
+      "Happy 😊": {
+        emoji: "😊",
+        color: "#f59e0b",
+        bg: "rgba(245, 158, 11, 0.15)",
+      },
+      "Calm 😌": {
+        emoji: "😌",
+        color: "#10b981",
+        bg: "rgba(16, 185, 129, 0.15)",
+      },
+      "Anxious 😰": {
+        emoji: "😰",
+        color: "#ec4899",
+        bg: "rgba(236, 72, 153, 0.15)",
+      },
+      "Hopeful 🌟": {
+        emoji: "🌟",
+        color: "#8b5cf6",
+        bg: "rgba(139, 92, 246, 0.15)",
+      },
+      "Sad 😢": {
+        emoji: "😢",
+        color: "#3b82f6",
+        bg: "rgba(59, 130, 246, 0.15)",
+      },
+    };
+
+    let typingTimer;
     textarea.addEventListener("input", function () {
       const text = this.value;
+      clearTimeout(typingTimer);
+
       if (text.length > 10) {
-        // Mock preview (real: fetch('/analyze', {text}))
-        const emotions = [
-          "Happy 😊",
-          "Calm 😌",
-          "Anxious 😰",
-          "Hopeful 🌟",
-          "Sad 😢",
-        ];
-        emotionSpan.textContent =
-          emotions[Math.floor(Math.random() * emotions.length)];
+        previewValue.textContent = "Analyzing...";
         preview.style.display = "block";
+
+        // Debounced emotion detection
+        typingTimer = setTimeout(() => {
+          const emotions = Object.keys(emotionMap);
+          const randomEmotion =
+            emotions[Math.floor(Math.random() * emotions.length)];
+          const config = emotionMap[randomEmotion];
+
+          previewEmoji.textContent = config.emoji;
+          previewValue.textContent = randomEmotion;
+          previewValue.style.color = config.color;
+          previewBadge.style.background = config.bg;
+          previewBadge.style.borderColor = config.color;
+        }, 800);
       } else {
         preview.style.display = "none";
       }
