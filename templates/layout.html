@@ -14,31 +14,35 @@
 <a href="/" class="logo-link">
   <div class="logo">
     <i class="fas fa-brain fa-2x"></i>
-    MoodSpace Pro
+     MoodSpace Pro
   </div>
 </a>
 
-            <button class="mobile-menu-btn" onclick="toggleNavbar()">☰</button>
-            <ul class="nav-links" id="navbar">
-                <button id="dark-toggle" class="nav-link" title="Toggle Theme">
-                  <i class="fas fa-moon"></i> Dark
+            <div class="nav-actions">
+                <button id="dark-toggle" class="nav-theme-btn" title="Toggle Theme">
+                  <i class="fas fa-moon"></i>
                 </button>
-                <li><a href="/">Home</a></li>
-                {% if session.user %}
-                <li><a href="/dashboard">Feed</a></li>
-                <li><a href="/analyze">Analyze</a></li>
-                <li><a href="/camera">Camera</a></li>
-                <li><a href="/journal">Journal</a></li>
-                <li><a href="/breathe">Breathe</a></li>
-                <li><a href="/profile">Profile</a></li>
-                {% if session.user == 'admin' %}
-                <li><a href="/admin">Admin</a></li>
-                {% endif %}
-                <li><a href="/logout">Logout</a></li>
-                {% else %}
-                <li><a href="/login">Login</a></li>
-                {% endif %}
-            </ul>
+                <button class="mobile-menu-btn" onclick="toggleNavbar()" aria-label="Toggle menu">
+                  <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navbar">
+                    <li><a href="/" class="nav-item">Home</a></li>
+                    {% if session.user %}
+                    <li><a href="/dashboard" class="nav-item">Feed</a></li>
+                    <li><a href="/analyze" class="nav-item">Analyze</a></li>
+                    <li><a href="/camera" class="nav-item">Camera</a></li>
+                    <li><a href="/journal" class="nav-item">Journal</a></li>
+                    <li><a href="/breathe" class="nav-item">Breathe</a></li>
+                    <li><a href="/profile" class="nav-item">Profile</a></li>
+                    {% if session.user == 'admin' %}
+                    <li><a href="/admin" class="nav-item">Admin</a></li>
+                    {% endif %}
+                    <li><a href="/logout" class="nav-item nav-logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="/login" class="nav-item nav-cta">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </nav>
 <main class="page-container">
