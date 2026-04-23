@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MoodSpace - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+<a href="/" class="logo-link">
+  <div class="logo">
+    <i class="fas fa-heartbeat fa-2x"></i>
+    <span>🧠✨</span>
+  </div>
+</a>
+
+            <button class="mobile-menu-btn" onclick="toggleNavbar()">☰</button>
+            <ul class="nav-links" id="navbar">
+                <li><a href="/">Home</a></li>
+                {% if session.user %}
+                <li><a href="/dashboard">Feed</a></li>
+                <li><a href="/analyze">Analyze</a></li>
+                <li><a href="/camera">Camera</a></li>
+                <li><a href="/journal">Journal</a></li>
+                <li><a href="/breathe">Breathe</a></li>
+                <li><a href="/profile">Profile</a></li>
+                {% if session.user == 'admin' %}
+                <li><a href="/admin">Admin</a></li>
+                {% endif %}
+                <li><a href="/logout">Logout</a></li>
+                {% else %}
+                <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+<main class="page-container">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

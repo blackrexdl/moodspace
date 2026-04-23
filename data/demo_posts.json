@@ -1,0 +1,90 @@
+[
+  {
+    "user": "Priya Sharma",
+    "emotion": "Calm",
+    "text": "Just finished a 30-minute meditation session. Feeling so peaceful and centered right now. Remember, taking a few minutes for yourself each day can make all the difference! \ud83e\uddd8\u200d\u2640\ufe0f",
+    "confidence": 92,
+    "likes": 2,
+    "date": "3 days ago"
+  },
+  {
+    "user": "Rahul Verma",
+    "emotion": "Hopeful",
+    "text": "Had a tough day at work today. Sometimes it feels like the pressure never stops. But I know tomorrow is a new day and things will get better. One step at a time. \ud83d\udcaa",
+    "confidence": 65,
+    "likes": 1,
+    "date": "3 days ago"
+  },
+  {
+    "user": "Ananya Patel",
+    "emotion": "Happy",
+    "text": "Just got accepted into my dream university! All those late nights studying finally paid off! I am so grateful for everyone who supported me through this journey! \ud83c\udf89\ud83c\udf93",
+    "confidence": 98,
+    "likes": 3,
+    "date": "4 days ago"
+  },
+  {
+    "user": "Priya Sharma",
+    "emotion": "Anxious",
+    "text": "Feeling really anxious about my upcoming presentation. My heart races every time I think about it. Does anyone have tips for managing presentation anxiety?",
+    "confidence": 85,
+    "likes": 1,
+    "date": "4 days ago"
+  },
+  {
+    "user": "Rahul Verma",
+    "emotion": "Sad",
+    "text": "I miss my grandmother so much. She passed away last month and the house feels so empty without her laughter. Grief is such a heavy burden to carry.",
+    "confidence": 88,
+    "likes": 2,
+    "date": "5 days ago"
+  },
+  {
+    "user": "Ananya Patel",
+    "emotion": "Angry",
+    "text": "Today I stood up for myself when someone tried to belittle me. I am tired of being treated that way. Everyone deserves respect, and I am done staying quiet!",
+    "confidence": 72,
+    "likes": 2,
+    "date": "5 days ago"
+  },
+  {
+    "user": "PriyaSharma",
+    "text": "h",
+    "emotion": "angry",
+    "confidence": 85,
+    "likes": 0,
+    "date": "Just now"
+  },
+  {
+    "user": "PriyaSharma",
+    "text": "hello",
+    "emotion": "angry",
+    "confidence": 85,
+    "likes": 0,
+    "date": "Just now"
+  },
+  {
+    "user": "PriyaSharma",
+    "text": "test",
+    "emotion": "angry",
+    "confidence": 85,
+    "likes": 0,
+    "date": "Just now"
+  },
+  {
+    "user": "PriyaSharma",
+    "text": "khana kha leya me , tuc kha leya  ",
+    "emotion": "angry",
+    "confidence": 85,
+    "likes": 0,
+    "date": "Just now"
+  },
+  {
+    "user": "PriyaSharma",
+    "text": "helo",
+    "emotion": "angry",
+    "confidence": 85,
+    "likes": 0,
+    "date": "Just now"
+  }
+]

@@ -1,0 +1,287 @@
+{% extends "layout.html" %} {% block title %}Feed - MoodSpace Pro{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <div class="welcome card">
+    <h1>Welcome back, {{ user }}! 👋</h1>
+    <p>Your personalized feed & wellness dashboard</p>
+    <a href="/journal" class="btn-primary">✍️ New Post</a>
+  </div>
+
+  <div class="stats-grid progress-grid">
+    <div class="card stat-card streak">
+      <div class="stat-number">🔥 7</div>
+      <div class="stat-label">Day Streak</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-number">42</div>
+      <div class="stat-label">Check-ins</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-number">15</div>
+      <div class="stat-label">Posts</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-number">23</div>
+      <div class="stat-label">Sessions</div>
+    </div>
+  </div>
+
+  <div class="calendar-section card">
+    <h3>📅 Mood Calendar</h3>
+    <div class="calendar-grid">
+      <div class="calendar-header">
+        <button class="calendar-nav">‹</button>
+        <h4>April 2026</h4>
+        <button class="calendar-nav">›</button>
+      </div>
+      <div class="calendar-days">
+        <div class="day-header">S</div>
+        <div class="day-header">M</div>
+        <div class="day-header">T</div>
+        <div class="day-header">W</div>
+        <div class="day-header">T</div>
+        <div class="day-header">F</div>
+        <div class="day-header">S</div>
+        <div class="calendar-day neutral">1</div>
+        <div class="calendar-day happy today">2</div>
+        <div class="calendar-day calm">3</div>
+        <div class="calendar-day anxious">4</div>
+        <div class="calendar-day happy">5</div>
+        <div class="calendar-day neutral">6</div>
+        <div class="calendar-day sad">7</div>
+        <div class="calendar-day happy">8</div>
+        <div class="calendar-day calm">9</div>
+        <div class="calendar-day anxious">10</div>
+        <div class="calendar-day neutral">11</div>
+        <div class="calendar-day happy">12</div>
+        <div class="calendar-day calm">13</div>
+        <div class="calendar-day neutral">14</div>
+        <div class="calendar-day sad">15</div>
+        <div class="calendar-day happy">16</div>
+        <div class="calendar-day calm">17</div>
+        <div class="calendar-day neutral">18</div>
+        <div class="calendar-day anxious">19</div>
+        <div class="calendar-day happy">20</div>
+        <div class="calendar-day calm">21</div>
+        <div class="calendar-day neutral">22</div>
+        <div class="calendar-day happy today">23</div>
+        <div class="calendar-day calm">24</div>
+        <div class="calendar-day neutral">25</div>
+        <div class="calendar-day sad">26</div>
+        <div class="calendar-day happy">27</div>
+        <div class="calendar-day calm">28</div>
+        <div class="calendar-day neutral">29</div>
+        <div class="calendar-day anxious">30</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-grid">
+    <a href="/analyze" class="tool-card">
+      <i class="fas fa-brain"></i>
+      <h4>Analyze</h4>
+      <p>Text emotion</p>
+    </a>
+    <a href="/camera" class="tool-card">
+      <i class="fas fa-camera"></i>
+      <h4>Camera</h4>
+      <p>Face scan</p>
+    </a>
+    <a href="/breathe" class="tool-card">
+      <i class="fas fa-lungs"></i>
+      <h4>Breathe</h4>
+      <p>Relax now</p>
+    </a>
+    <a href="/journal" class="tool-card">
+      <i class="fas fa-edit"></i>
+      <h4>Journal</h4>
+      <p>New post</p>
+    </a>
+  </div>
+
+  <div class="feed-section card">
+    <div class="feed-header">
+      <h3>📱 Your Feed</h3>
+      <a href="/journal" class="btn-primary btn-sm">✨ New Post</a>
+    </div>
+    <div class="posts">
+      {% for post in demo_posts[-6:] %}
+      <article class="card feed-post">
+        <div class="post-header">
+          <img
+            src="https://ui-avatars.com/api/?name={{ post.user }}&background=6c5ce7&color=fff&size=40&rounded=true"
+            class="post-avatar"
+            alt="{{ post.user }}"
+          />
+          <div>
+            <strong>{{ post.user }}</strong>
+            <small>{{ post.date }}</small>
+          </div>
+          <span class="emotion-badge {{ post.emotion|lower }}">
+            {{ post.emotion }}
+          </span>
+        </div>
+        <p class="post-text">{{ post.text }}</p>
+        <div class="post-footer">
+          <button class="post-action like-btn">
+            <i class="far fa-thumbs-up"></i> {{ post.likes }}
+          </button>
+          <button class="post-action">
+            <i class="far fa-comment"></i> Comment
+          </button>
+          <button class="post-action">
+            <i class="fas fa-share"></i> Share
+          </button>
+          <span class="confidence">{{ post.confidence }}% accurate</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% if demo_posts|length == 0 %}
+    <div class="empty-feed">
+      <i class="fas fa-feather-alt fa-4x"></i>
+      <h3>No posts yet</h3>
+      <p>Share your first mood post via <a href="/journal">Journal</a></p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-text {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .post-footer {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--soft-gray);
+  }
+
+  .post-action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+  }
+
+  .post-action:hover {
+    background: var(--soft-gray);
+  }
+
+  .like-btn i {
+    margin-right: 0.25rem;
+  }
+
+  .confidence {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+
+  .calendar-grid {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .calendar-nav {
+    background: var(--soft-gray);
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .calendar-nav:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+  }
+
+  .day-header {
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary);
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+  }
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    margin: 0.125rem;
+  }
+
+  .calendar-day:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow);
+  }
+
+  .calendar-day.today {
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    box-shadow: var(--shadow-hover);
+  }
+
+  .calendar-day.neutral {
+    border: 2px solid transparent;
+  }
+  .calendar-day.happy {
+    background: rgba(76, 175, 80, 0.2);
+  }
+  .calendar-day.calm {
+    background: rgba(156, 39, 176, 0.2);
+  }
+  .calendar-day.anxious {
+    background: rgba(255, 152, 0, 0.3);
+  }
+  .calendar-day.sad {
+    background: rgba(33, 150, 243, 0.2);
+  }
+</style>
+{% endblock %}

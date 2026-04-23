@@ -1,0 +1,97 @@
+{% extends "layout.html" %} {% block title %}Emotion Analyzer - MoodSpace Pro{%
+endblock %} {% block content %}
+<div class="analyze-container card">
+  <div class="page-header">
+    <h1><i class="fas fa-brain"></i> AI Emotion Analyzer</h1>
+    <p>
+      Write your feelings - get instant analysis + personalized wellness advice
+    </p>
+  </div>
+
+  <form method="POST" class="analyze-form">
+    <div class="form-group">
+      <label for="analyze-text">
+        <i class="fas fa-edit"></i> Share your thoughts or feelings...
+      </label>
+      <textarea
+        id="analyze-text"
+        name="text"
+        placeholder="I'm feeling anxious about work... OR Great day at gym! How are you feeling today?"
+        required
+        rows="6"
+      ></textarea>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn-primary full-width">
+        <i class="fas fa-magic"></i> Analyze Emotion
+      </button>
+      <a href="/dashboard" class="btn-secondary btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Feed
+      </a>
+    </div>
+  </form>
+
+  {% if emotion %}
+  <div class="analysis-result card">
+    <div class="emotion-display">
+      <div class="emotion-circle {{ emotion|lower }}">
+        <span class="emotion-emoji">{{ emotion_emoji[emotion] or '🤖' }}</span>
+        <h2>{{ emotion|title }}</h2>
+      </div>
+      <div class="confidence-meter">
+        <div class="meter-label">Accuracy</div>
+        <div class="meter">
+          <div class="meter-fill" style="width: 85%"></div>
+        </div>
+        <div class="confidence-text">85% confident</div>
+      </div>
+    </div>
+
+    <div class="personalized-advice">
+      <h3>🎯 Personalized Advice</h3>
+      <div class="advice-card {{ emotion|lower }}">
+        {% if emotion == 'happy' %}
+        <p>
+          ✨ Great mood! Share this positivity - post to journal or breathe for
+          balance.
+        </p>
+        {% elif emotion == 'calm' %}
+        <p>😌 Perfect state. Maintain with 4-7-8 breathing or nature walk.</p>
+        {% elif emotion == 'anxious' %}
+        <p>
+          🌬️ Try Box Breathing now (<a href="/breathe">Breathe page</a>) +
+          journal thoughts.
+        </p>
+        {% elif emotion == 'sad' %}
+        <p>🤗 Gentle self-care. Try camera scan or connect via feed posts.</p>
+        {% elif emotion == 'angry' %}
+        <p>🔥 Release with 5min journal + deep breathing. Progress tracked!</p>
+        {% else %}
+        <p>📊 Neutral detected. Check mood calendar or daily check-in.</p>
+        {% endif %}
+      </div>
+      <div class="quick-actions">
+        <a href="/journal" class="btn-primary btn-sm">
+          <i class="fas fa-edit"></i> Journal This
+        </a>
+        <a href="/breathe" class="btn-secondary btn-sm">
+          <i class="fas fa-lungs"></i> Breathe Now
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  const emotionEmoji = {
+    happy: "😊",
+    sad: "😢",
+    calm: "😌",
+    anxious: "😰",
+    angry: "😠",
+    hopeful: "🌟",
+    neutral: "😐",
+  };
+</script>
+{% endblock %}

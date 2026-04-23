@@ -1,0 +1,9 @@
+flask
+flask-sqlalchemy
+scikit-learn
+pandas
+nltk
+deepface
+opencv-python-headless
+pillow
+

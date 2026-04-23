@@ -1,0 +1,127 @@
+{% extends "layout.html" %} {% block title %}Breathing Exercises - MoodSpace{%
+endblock %} {% block content %}
+<div class="breathe-page">
+  <div class="page-header">
+    <h1><i class="fas fa-lungs"></i> Breathing Exercises</h1>
+    <p>Clinically proven techniques to reduce anxiety and stress instantly</p>
+  </div>
+
+  <div class="exercise-selector">
+    <div class="exercise-card active" data-mode="478">
+      <div class="exercise-icon">🧘</div>
+      <h3>4-7-8 Technique</h3>
+      <p>Best for sleep & anxiety</p>
+      <small>Inhale 4s • Hold 7s • Exhale 8s</small>
+    </div>
+    <div class="exercise-card" data-mode="box">
+      <div class="exercise-icon">📦</div>
+      <h3>Box Breathing</h3>
+      <p>Used by Navy SEALs</p>
+      <small>4s each phase</small>
+    </div>
+    <div class="exercise-card" data-mode="calm">
+      <div class="exercise-icon">😌</div>
+      <h3>Calm Breath</h3>
+      <p>Gentle daily practice</p>
+      <small>5s in • 5s out</small>
+    </div>
+  </div>
+
+  <div class="breathing-section card">
+    <div class="phase-indicators">
+      <div class="phase" id="inhale-phase">
+        <div class="phase-label">INHALE</div>
+        <div class="phase-bar" id="inhale-bar"></div>
+        <div class="phase-time">4s</div>
+      </div>
+      <div class="phase" id="hold-phase">
+        <div class="phase-label">HOLD</div>
+        <div class="phase-bar" id="hold-bar"></div>
+        <div class="phase-time">7s</div>
+      </div>
+      <div class="phase" id="exhale-phase">
+        <div class="phase-label">EXHALE</div>
+        <div class="phase-bar" id="exhale-bar"></div>
+        <div class="phase-time">8s</div>
+      </div>
+    </div>
+
+    <div class="breathing-circle-container">
+      <div class="breathing-circle large" id="breathing-circle">
+        <div class="circle-inner">
+          <div id="breath-text">Ready to begin</div>
+          <div id="cycle-count">
+            Session: <span id="current-cycles">0</span>/10
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="start-breathing" class="btn-primary large-btn">
+        <i class="fas fa-play"></i> Start Session
+      </button>
+      <button
+        id="pause-breathing"
+        class="btn-secondary large-btn"
+        style="display: none"
+      >
+        <i class="fas fa-pause"></i> Pause
+      </button>
+      <button
+        id="stop-breathing"
+        class="btn-danger large-btn"
+        style="display: none"
+      >
+        <i class="fas fa-stop"></i> End Session
+      </button>
+    </div>
+
+    <div class="session-stats">
+      <div class="stat">
+        <span class="stat-label">Total Cycles</span>
+        <span class="stat-value" id="total-cycles">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Best Session</span>
+        <span class="stat-value" id="best-session">8</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Avg Duration</span>
+        <span class="stat-value">4.2 min</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="health-tips card">
+    <h3>💡 Healthcare Tips</h3>
+    <div class="tips-grid">
+      <div class="tip">
+        <i class="fas fa-chair"></i>
+        <div>Sit comfortably with feet flat</div>
+      </div>
+      <div class="tip">
+        <i class="fas fa-eye-closed"></i>
+        <div>Close eyes, focus on breath</div>
+      </div>
+      <div class="tip">
+        <i class="fas fa-clock"></i>
+        <div>Practice 5 min daily</div>
+      </div>
+      <div class="tip">
+        <i class="fas fa-hand-paper"></i>
+        <div>Exhale through mouth slowly</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sessions-history card">
+    <h3>📊 Your Sessions</h3>
+    <div id="sessions-list">
+      <p>No sessions yet. Start your first one!</p>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/script.js"></script>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "layout.html" %} {% block title %}Profile - MoodSpace{% endblock %}
+{% block content %}
+<div class="profile-container">
+  <div class="card text-center profile-header">
+    <div class="profile-avatar-section">
+      <div class="avatar-upload">
+        <img
+          id="avatar-preview"
+          src="https://via.placeholder.com/150/f8f9fa/6c5ce7?text=👤"
+          alt="Profile Avatar"
+          class="avatar-large"
+        />
+        <input
+          type="file"
+          id="profile-image"
+          accept="image/*"
+          class="file-input"
+        />
+        <label for="profile-image" class="upload-btn">Change Photo</label>
+      </div>
+    </div>
+    <h2 id="profile-name">{{ user }}</h2>
+    <p class="member-since">Member since 2024 • Verified</p>
+  </div>
+
+  <div class="profile-content-grid">
+    <div class="card profile-edit">
+      <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+      <form class="profile-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input
+            type="text"
+            id="profile-name-input"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            id="profile-email"
+            placeholder="your@email.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea
+            id="profile-bio"
+            placeholder="Tell us about yourself and your wellness journey..."
+            rows="4"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input
+            type="text"
+            id="profile-location"
+            placeholder="City, Country"
+          />
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Changes</button>
+          <button type="reset" class="btn-secondary">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="stats-grid">
+      <div class="card stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number">47</div>
+        <div class="stat-label">Check-ins</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number">23</div>
+        <div class="stat-label">Breathing Sessions</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number">156</div>
+        <div class="stat-label">Total Posts</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card recent-activity">
+    <h3>Recent Activity</h3>
+    <div class="activity-list">
+      <div class="activity-item">
+        <span class="activity-icon">🌬️</span>
+        <span>Completed 8-cycle breathing session</span>
+        <span class="activity-time">2 hours ago</span>
+      </div>
+      <div class="activity-item">
+        <span class="activity-icon">📝</span>
+        <span>Added journal entry "Feeling grateful"</span>
+        <span class="activity-time">1 day ago</span>
+      </div>
+      <!-- more items -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Load saved profile
+    const savedProfile = localStorage.getItem("userProfile");
+    if (savedProfile) {
+      const profile = JSON.parse(savedProfile);
+      document.getElementById("profile-name-input").value = profile.name || "";
+      document.getElementById("profile-email").value = profile.email || "";
+      document.getElementById("profile-bio").value = profile.bio || "";
+    }
+
+    // Avatar preview
+    document
+      .getElementById("profile-image")
+      .addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("avatar-preview").src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+  });
+</script>
+{% endblock %}

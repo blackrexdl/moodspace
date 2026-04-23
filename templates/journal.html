@@ -1,0 +1,68 @@
+{% extends "layout.html" %} {% block title %}Mood Journal - MoodSpace Pro{%
+endblock %} {% block content %}
+<div class="journal-container card">
+  <div class="page-header">
+    <h1><i class="fas fa-book-open"></i> Mood Journal</h1>
+    <p>Your private space to reflect. Posts auto-analyzed + shared to feed.</p>
+  </div>
+
+  <form method="POST" action="/post" id="journal-form" class="journal-form">
+    <div class="form-group">
+      <label for="journal-text"
+        ><i class="fas fa-edit"></i> What's on your mind?</label
+      >
+      <textarea
+        id="journal-text"
+        name="text"
+        placeholder="Write your thoughts, feelings, or daily reflection... (AI analyzes emotion automatically)"
+        required
+        rows="8"
+      ></textarea>
+      <div id="emotion-preview" class="emotion-preview" style="display: none">
+        <span>Detected Emotion: <span id="preview-emotion"></span></span>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn-primary full-width">
+        <i class="fas fa-paper-plane"></i> Post to Feed & Analyze
+      </button>
+      <a href="/dashboard" class="btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </form>
+
+  <div class="recent-entries">
+    <h3>Recent Entries</h3>
+    <p>Your posts appear in Dashboard Feed. Start writing!</p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const textarea = document.getElementById("journal-text");
+    const preview = document.getElementById("emotion-preview");
+    const emotionSpan = document.getElementById("preview-emotion");
+
+    // Preview emotion on type (demo - call /analyze API)
+    textarea.addEventListener("input", function () {
+      const text = this.value;
+      if (text.length > 10) {
+        // Mock preview (real: fetch('/analyze', {text}))
+        const emotions = [
+          "Happy 😊",
+          "Calm 😌",
+          "Anxious 😰",
+          "Hopeful 🌟",
+          "Sad 😢",
+        ];
+        emotionSpan.textContent =
+          emotions[Math.floor(Math.random() * emotions.length)];
+        preview.style.display = "block";
+      } else {
+        preview.style.display = "none";
+      }
+    });
+  });
+</script>
+{% endblock %}
