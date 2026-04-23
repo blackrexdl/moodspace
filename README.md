@@ -51,12 +51,16 @@ The platform focuses on creating a safer and more personalized social media expe
 
 ## 🖼️ Screenshots
 
+![Landing](https://github.com/blackrexdl/moodspace/blob/main/static/images/Landing.png)
 ![Dashboard](https://github.com/blackrexdl/moodspace/blob/main/static/images/Dash.png)
 ![Analytics](https://github.com/blackrexdl/moodspace/blob/main/static/images/Analyze.png)
+![Feed Section](https://github.com/blackrexdl/moodspace/blob/main/static/images/Feed.png)
 ![Journal](https://github.com/blackrexdl/moodspace/blob/main/static/images/Journal.png)
 ![Breathing](https://github.com/blackrexdl/moodspace/blob/main/static/images/Breadth.png)
 ![Camera](https://github.com/blackrexdl/moodspace/blob/main/static/images/Camera.png)
 ![Profile](https://github.com/blackrexdl/moodspace/blob/main/static/images/Progfile.png)
+![Admin Dashboard](https://github.com/blackrexdl/moodspace/blob/main/static/images/Admin%20DAsh.png)
+![Algorithm](https://github.com/blackrexdl/moodspace/blob/main/static/images/Algo.png)
 
 
 ---
