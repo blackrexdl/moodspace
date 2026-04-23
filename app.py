@@ -158,10 +158,18 @@ def create_post():
         "date": "Just now"
     }
     
-    # Append to demo_posts
+    # Append to demo_posts immediately
     app.demo_posts.append(new_post)
-    with open("data/demo_posts.json", "w") as f:
-        json.dump(app.demo_posts, f, indent=2)
+    
+    # Write to file in background (non-blocking)
+    import threading
+    def save_posts():
+        try:
+            with open("data/demo_posts.json", "w") as f:
+                json.dump(app.demo_posts, f, indent=2)
+        except Exception:
+            pass
+    threading.Thread(target=save_posts, daemon=True).start()
     
     return redirect("/dashboard")
 

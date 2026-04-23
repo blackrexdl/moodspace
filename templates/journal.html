@@ -29,7 +29,7 @@ endblock %} {% block content %}
         <span class="write-privacy"> <i class="fas fa-globe"></i> Public </span>
       </div>
 
-      <form method="POST" action="/post" id="journal-form" class="journal-form">
+      <form id="journal-form" class="journal-form">
         <div class="form-group">
           <textarea
             id="journal-text"
@@ -71,12 +71,26 @@ endblock %} {% block content %}
             <a href="/dashboard" class="btn-cancel">
               <i class="fas fa-times"></i> Cancel
             </a>
-            <button type="submit" class="btn-post">
-              <i class="fas fa-paper-plane"></i> Post to Feed
+            <button type="submit" class="btn-post" id="btn-post">
+              <span class="btn-text"
+                ><i class="fas fa-paper-plane"></i> Post to Feed</span
+              >
+              <span class="btn-loader" style="display: none"
+                ><i class="fas fa-circle-notch fa-spin"></i> Posting...</span
+              >
             </button>
           </div>
         </div>
       </form>
+
+      <!-- Success Toast -->
+      <div id="post-success" class="post-success-toast" style="display: none">
+        <i class="fas fa-check-circle"></i>
+        <div>
+          <strong>Posted!</strong>
+          <span>Your entry has been shared to the feed.</span>
+        </div>
+      </div>
     </div>
 
     <!-- Tips Sidebar -->
@@ -123,6 +137,11 @@ endblock %} {% block content %}
     const previewValue = document.getElementById("preview-value");
     const previewEmoji = document.getElementById("preview-emoji");
     const previewBadge = document.getElementById("preview-badge");
+    const form = document.getElementById("journal-form");
+    const btnPost = document.getElementById("btn-post");
+    const btnText = btnPost.querySelector(".btn-text");
+    const btnLoader = btnPost.querySelector(".btn-loader");
+    const successToast = document.getElementById("post-success");
 
     const emotionMap = {
       "Happy 😊": {
@@ -178,6 +197,58 @@ endblock %} {% block content %}
         preview.style.display = "none";
       }
     });
+
+    // Fast AJAX form submission
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const text = textarea.value.trim();
+      if (!text) return;
+
+      // Show loading state
+      btnPost.disabled = true;
+      btnText.style.display = "none";
+      btnLoader.style.display = "inline-flex";
+
+      try {
+        const formData = new FormData();
+        formData.append("text", text);
+
+        const response = await fetch("/post", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok || response.redirected) {
+          // Show success immediately
+          showSuccessToast();
+          // Clear form
+          textarea.value = "";
+          preview.style.display = "none";
+          // Redirect after short delay
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 1200);
+        } else {
+          throw new Error("Post failed");
+        }
+      } catch (err) {
+        // Fallback: submit normally
+        form.method = "POST";
+        form.action = "/post";
+        form.submit();
+      }
+    });
+
+    function showSuccessToast() {
+      successToast.style.display = "flex";
+      successToast.style.animation = "slideUpFade 0.4s ease";
+      setTimeout(() => {
+        successToast.style.animation = "slideDownFade 0.4s ease";
+        setTimeout(() => {
+          successToast.style.display = "none";
+        }, 400);
+      }, 2000);
+    }
   });
 </script>
 {% endblock %}

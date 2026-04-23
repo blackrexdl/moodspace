@@ -191,8 +191,8 @@ endblock %} {% block content %}
         </a>
       </div>
       <div class="posts">
-        {% for post in demo_posts[-6:] %}
-        <article class="feed-post social">
+        {% for post in demo_posts[-6:]|reverse %}
+        <article class="feed-post social {% if loop.first %}latest-post{% endif %}">
           <div class="post-header social">
             <div class="post-user-info">
               <div class="avatar-wrapper">
