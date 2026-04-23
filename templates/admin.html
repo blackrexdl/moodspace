@@ -1,101 +1,399 @@
-{% extends "layout.html" %} {% block title %}Admin - MoodSpace{% endblock %} {%
-block content %}
-<div class="admin-container">
-  <h2>Admin Panel</h2>
-  <div class="admin-stats">
-    <p><strong>Total Users:</strong> 4</p>
-    <p><strong>Total Posts:</strong> 6</p>
+{% extends "layout.html" %} {% block title %}Admin Dashboard - MoodSpace Pro{%
+endblock %} {% block content %}
+<div class="admin-page">
+  <!-- Admin Header -->
+  <div class="admin-header">
+    <div class="admin-titles">
+      <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
+      <p>Manage users, monitor activity, and control platform settings</p>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-export" id="btn-export">
+        <i class="fas fa-download"></i> Export Data
+      </button>
+      <button class="btn-refresh" id="btn-refresh">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+    </div>
   </div>
 
-  <h3>Users Management</h3>
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Posts</th>
-        <th>Joined</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>PriyaSharma</td>
-        <td>2</td>
-        <td>2024</td>
-        <td>
-          <button class="btn-danger">Delete</button> <button>Edit</button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>RahulVerma</td>
-        <td>2</td>
-        <td>2024</td>
-        <td>
-          <button class="btn-danger">Delete</button> <button>Edit</button>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>AnanyaPatel</td>
-        <td>2</td>
-        <td>2024</td>
-        <td>
-          <button class="btn-danger">Delete</button> <button>Edit</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Stats Grid -->
+  <div class="admin-stats-grid">
+    <div class="admin-stat-card stat-users">
+      <div class="stat-icon-bg"><i class="fas fa-users"></i></div>
+      <div class="stat-content">
+        <div class="stat-num">{{ total_users }}</div>
+        <div class="stat-label">Total Users</div>
+        <div class="stat-trend up">
+          <i class="fas fa-arrow-up"></i> +{{ total_users - 1 }} new
+        </div>
+      </div>
+    </div>
+    <div class="admin-stat-card stat-posts">
+      <div class="stat-icon-bg"><i class="fas fa-file-alt"></i></div>
+      <div class="stat-content">
+        <div class="stat-num">{{ total_posts }}</div>
+        <div class="stat-label">Total Posts</div>
+        <div class="stat-trend up"><i class="fas fa-arrow-up"></i> Active</div>
+      </div>
+    </div>
+    <div class="admin-stat-card stat-emotions">
+      <div class="stat-icon-bg"><i class="fas fa-smile"></i></div>
+      <div class="stat-content">
+        <div class="stat-num">{{ emotions|length }}</div>
+        <div class="stat-label">Emotion Types</div>
+        <div class="stat-trend neutral">Tracked</div>
+      </div>
+    </div>
+    <div class="admin-stat-card stat-activity">
+      <div class="stat-icon-bg"><i class="fas fa-chart-line"></i></div>
+      <div class="stat-content">
+        <div class="stat-num">{{ demo_posts|length }}</div>
+        <div class="stat-label">Activities Today</div>
+        <div class="stat-trend up"><i class="fas fa-arrow-up"></i> Growing</div>
+      </div>
+    </div>
+  </div>
 
-  <h3>Recent Posts</h3>
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Text</th>
-        <th>Emotion</th>
-        <th>Likes</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for post in demo_posts %}
-      <tr>
-        <td>{{ post.user }}</td>
-        <td>{{ post.text[:50] }}...</td>
-        <td>{{ post.emotion }}</td>
-        <td>{{ post.likes }}</td>
-        <td><button class="btn-danger">Delete</button></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <!-- Charts & Top Section -->
+  <div class="admin-layout">
+    <!-- Emotion Chart -->
+    <div class="admin-card chart-card">
+      <div class="card-header">
+        <h3><i class="fas fa-chart-pie"></i> Emotion Distribution</h3>
+      </div>
+      <div class="emotion-chart-container">
+        {% for emotion, count in emotions.items() %}
+        <div class="emotion-chart-item">
+          <div class="emotion-chart-info">
+            <span class="emotion-dot {{ emotion|lower }}"></span>
+            <span class="emotion-name">{{ emotion|title }}</span>
+            <span class="emotion-count">{{ count }}</span>
+          </div>
+          <div class="emotion-chart-bar-bg">
+            <div
+              class="emotion-chart-bar {{ emotion|lower }}"
+              style="width: {{ (count / total_posts * 100)|round|int }}%"
+            ></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Top Users -->
+    <div class="admin-card top-users-card">
+      <div class="card-header">
+        <h3><i class="fas fa-trophy"></i> Top Users</h3>
+      </div>
+      <div class="top-users-list">
+        {% for user in top_users %}
+        <div class="top-user-item">
+          <div class="top-user-rank">#{{ loop.index }}</div>
+          <img
+            src="https://ui-avatars.com/api/?name={{ user.username }}&background={{ ['1e3a8a','3b82f6','10b981','8b5cf6','f59e0b'][loop.index0 % 5] }}&color=fff&size=40&rounded=true"
+            alt="{{ user.username }}"
+            class="top-user-avatar"
+          />
+          <div class="top-user-info">
+            <div class="top-user-name">{{ user.username }}</div>
+            <div class="top-user-posts">{{ user.posts }} posts</div>
+          </div>
+          <div class="top-user-bar-bg">
+            <div
+              class="top-user-bar"
+              style="width: {{ (user.posts / (top_users[0].posts or 1) * 100)|round|int }}%"
+            ></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="users">
+      <i class="fas fa-users-cog"></i> Users
+    </button>
+    <button class="admin-tab" data-tab="posts">
+      <i class="fas fa-newspaper"></i> Posts
+    </button>
+    <button class="admin-tab" data-tab="analytics">
+      <i class="fas fa-chart-area"></i> Analytics
+    </button>
+  </div>
+
+  <!-- Users Tab -->
+  <div class="admin-tab-panel active" id="tab-users">
+    <div class="admin-card">
+      <div class="card-header flex-between">
+        <h3><i class="fas fa-users"></i> All Users</h3>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="user-search"
+            placeholder="Search users..."
+            onkeyup="filterTable('users-table', this.value)"
+          />
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table" id="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>User</th>
+              <th>Posts</th>
+              <th>Joined</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr data-username="{{ user.username }}">
+              <td><span class="id-badge">#{{ user.id }}</span></td>
+              <td>
+                <div class="user-cell">
+                  <img
+                    src="https://ui-avatars.com/api/?name={{ user.username }}&background=1e3a8a&color=fff&size=32&rounded=true"
+                    alt=""
+                    class="table-avatar"
+                  />
+                  <span class="user-name">{{ user.username }}</span>
+                </div>
+              </td>
+              <td><span class="count-badge">{{ user.posts }}</span></td>
+              <td>{{ user.joined }}</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td>
+                <div class="action-btns">
+                  <button
+                    class="btn-action view"
+                    title="View"
+                    onclick="viewUser('{{ user.username }}')"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="btn-action edit"
+                    title="Edit"
+                    onclick="editUser('{{ user.username }}')"
+                  >
+                    <i class="fas fa-pen"></i>
+                  </button>
+                  <button
+                    class="btn-action delete"
+                    title="Delete"
+                    onclick="deleteUser('{{ user.username }}')"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts Tab -->
+  <div class="admin-tab-panel" id="tab-posts">
+    <div class="admin-card">
+      <div class="card-header flex-between">
+        <h3><i class="fas fa-newspaper"></i> All Posts</h3>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="post-search"
+            placeholder="Search posts..."
+            onkeyup="filterTable('posts-table', this.value)"
+          />
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table" id="posts-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>User</th>
+              <th>Content</th>
+              <th>Emotion</th>
+              <th>Confidence</th>
+              <th>Likes</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in demo_posts %}
+            <tr>
+              <td><span class="id-badge">#{{ loop.index }}</span></td>
+              <td>
+                <div class="user-cell">
+                  <img
+                    src="https://ui-avatars.com/api/?name={{ post.user }}&background=1e3a8a&color=fff&size=32&rounded=true"
+                    alt=""
+                    class="table-avatar"
+                  />
+                  <span class="user-name">{{ post.user }}</span>
+                </div>
+              </td>
+              <td class="post-content">
+                {{ post.text[:60] }}{% if post.text|length > 60 %}...{% endif %}
+              </td>
+              <td>
+                <span class="emotion-pill {{ post.emotion|lower }}"
+                  >{{ post.emotion|title }}</span
+                >
+              </td>
+              <td>
+                <span class="confidence-badge">{{ post.confidence }}%</span>
+              </td>
+              <td>
+                <span class="likes-badge"
+                  ><i class="fas fa-heart"></i> {{ post.likes }}</span
+                >
+              </td>
+              <td>{{ post.date }}</td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-action view" title="View">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="btn-action delete"
+                    title="Delete"
+                    onclick="deletePost({{ loop.index }})"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics Tab -->
+  <div class="admin-tab-panel" id="tab-analytics">
+    <div class="admin-layout">
+      <div class="admin-card">
+        <div class="card-header">
+          <h3><i class="fas fa-chart-bar"></i> Platform Growth</h3>
+        </div>
+        <div class="analytics-placeholder">
+          <div class="analytics-metric">
+            <div class="analytics-num">{{ total_users }}</div>
+            <div class="analytics-label">Registered Users</div>
+          </div>
+          <div class="analytics-metric">
+            <div class="analytics-num">{{ total_posts }}</div>
+            <div class="analytics-label">Total Posts</div>
+          </div>
+          <div class="analytics-metric">
+            <div class="analytics-num">{{ emotions|length }}</div>
+            <div class="analytics-label">Emotions Tracked</div>
+          </div>
+          <div class="analytics-metric">
+            <div class="analytics-num">
+              {{ (total_posts / (total_users or 1))|round(1) }}
+            </div>
+            <div class="analytics-label">Avg Posts/User</div>
+          </div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="card-header">
+          <h3><i class="fas fa-info-circle"></i> Platform Info</h3>
+        </div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-key">Database</span>
+            <span class="info-val">SQLite</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Environment</span>
+            <span class="info-val badge-live">Live</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Version</span>
+            <span class="info-val">2.0 Pro</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Last Backup</span>
+            <span class="info-val">Today</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<style>
-  .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
+
+<script>
+  // Tab switching
+  document.querySelectorAll(".admin-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document
+        .querySelectorAll(".admin-tab")
+        .forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      document
+        .querySelectorAll(".admin-tab-panel")
+        .forEach((p) => p.classList.remove("active"));
+      document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
+    });
+  });
+
+  // Table filter
+  function filterTable(tableId, query) {
+    const table = document.getElementById(tableId);
+    const rows = table.querySelectorAll("tbody tr");
+    const q = query.toLowerCase();
+    rows.forEach((row) => {
+      row.style.display = row.textContent.toLowerCase().includes(q)
+        ? ""
+        : "none";
+    });
   }
-  .admin-table th,
-  .admin-table td {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    text-align: left;
+
+  // Actions
+  function viewUser(username) {
+    alert("View user: " + username);
   }
-  .admin-table th {
-    background: #667eea;
-    color: white;
+  function editUser(username) {
+    alert("Edit user: " + username);
   }
-  .btn-danger {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
+  function deleteUser(username) {
+    if (confirm("Delete user " + username + "?")) {
+      const row = document.querySelector(
+        'tr[data-username="' + username + '"]',
+      );
+      if (row) row.remove();
+    }
   }
-</style>
+  function deletePost(id) {
+    if (confirm("Delete post #" + id + "?")) {
+      // Server delete would go here
+    }
+  }
+
+  // Refresh
+  document.getElementById("btn-refresh")?.addEventListener("click", () => {
+    location.reload();
+  });
+
+  // Export
+  document.getElementById("btn-export")?.addEventListener("click", () => {
+    alert("Export feature - connect to backend API");
+  });
+</script>
 {% endblock %}

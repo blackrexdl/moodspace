@@ -187,7 +187,38 @@ def profile():
 def admin():
     if "user" not in session or session["user"] != "admin":
         return redirect("/login")
-    return render_template("admin.html", demo_posts=app.demo_posts)
+    
+    # Get real stats
+    total_users = len(app.users)
+    total_posts = len(app.demo_posts)
+    
+    # Build users list with post counts
+    users_list = []
+    for username in sorted(app.users.keys()):
+        user_posts = [p for p in app.demo_posts if p.get('user') == username]
+        users_list.append({
+            'id': hash(username) % 10000,
+            'username': username,
+            'posts': len(user_posts),
+            'joined': '2024'
+        })
+    
+    # Emotion distribution
+    emotions = {}
+    for post in app.demo_posts:
+        emo = post.get('emotion', 'neutral')
+        emotions[emo] = emotions.get(emo, 0) + 1
+    
+    # Top users by posts
+    top_users = sorted(users_list, key=lambda x: x['posts'], reverse=True)[:5]
+    
+    return render_template("admin.html", 
+                         demo_posts=app.demo_posts,
+                         users=users_list,
+                         total_users=total_users,
+                         total_posts=total_posts,
+                         emotions=emotions,
+                         top_users=top_users)
 
 @app.route("/logout")
 def logout():
