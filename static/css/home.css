@@ -2835,7 +2835,7 @@
 }
 
 .latest-post::before {
-  content: 'NEW';
+  content: "NEW";
   position: absolute;
   top: -12px;
   right: 20px;
@@ -2852,8 +2852,13 @@
 }
 
 @keyframes pulse-new {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .dark .latest-post {
@@ -3009,6 +3014,684 @@
 .btn-post:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+/* ================================
+   BREATHING PAGE PREMIUM
+   ================================ */
+
+.breathe-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breathe-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.breathe-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 30% 50%,
+      rgba(16, 185, 129, 0.2) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(59, 130, 246, 0.2) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.breathe-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.breathe-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.breathe-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.breathe-hero p {
+  opacity: 0.85;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.breathe-stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.breathe-stat {
+  text-align: center;
+}
+
+.breathe-stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  display: block;
+  color: #fbbf24;
+}
+
+.breathe-stat-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Exercise Selector */
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.exercise-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.exercise-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.exercise-card.active {
+  border-color: var(--primary);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 58, 138, 0.05),
+    rgba(59, 130, 246, 0.05)
+  );
+}
+
+.exercise-card .exercise-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.exercise-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: #0f172a;
+}
+
+.exercise-info p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.exercise-timing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.time-tag {
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.time-tag.inhale {
+  background: rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+}
+.time-tag.hold {
+  background: rgba(139, 92, 246, 0.15);
+  color: #7c3aed;
+}
+.time-tag.exhale {
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+/* Breathing Interface */
+.breathing-interface {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.breathing-main {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+/* Phase Bars */
+.phase-bars {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.phase-bar-item {
+  flex: 1;
+  text-align: center;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.phase-bar-item.active {
+  opacity: 1;
+}
+
+.phase-bar-track {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.phase-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 1s linear;
+}
+
+.phase-bar-item.inhale .phase-bar-fill {
+  background: #3b82f6;
+}
+.phase-bar-item.hold .phase-bar-fill {
+  background: #8b5cf6;
+}
+.phase-bar-item.hold2 .phase-bar-fill {
+  background: #f59e0b;
+}
+.phase-bar-item.exhale .phase-bar-fill {
+  background: #10b981;
+}
+
+.phase-bar-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Circle */
+.breathing-circle-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.circle-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.progress-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+}
+
+.breathing-circle {
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.dark .breathing-circle {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+.circle-inner {
+  text-align: center;
+}
+
+.breath-phase {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.breath-timer {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.dark .breath-timer {
+  color: #f1f5f9;
+}
+
+.cycle-counter {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Controls */
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cycle-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selector-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.cycle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cycle-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.cycle-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.main-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-start {
+  padding: 0.875rem 2rem;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.btn-pause {
+  padding: 0.875rem 2rem;
+  border-radius: 14px;
+  border: 2px solid #f59e0b;
+  background: white;
+  color: #d97706;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-pause:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-stop {
+  padding: 0.875rem 2rem;
+  border-radius: 14px;
+  border: 2px solid #ef4444;
+  background: white;
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-stop:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Sidebar */
+.breathing-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.sidebar-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.instruction-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.benefits-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+/* Sessions */
+.sessions-section {
+  margin: 3rem 0;
+}
+
+.sessions-list {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  min-height: 150px;
+}
+
+.empty-sessions {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #94a3b8;
+}
+
+.empty-sessions i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.session-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.3s;
+}
+
+.session-item:hover {
+  background: #f8fafc;
+}
+
+.session-mode {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.session-time {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.progress-ring-small {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--primary) calc(var(--progress) * 1%),
+    #e2e8f0 0
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Dark Mode Breathing */
+.dark .breathe-hero {
+  background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #0f172a 100%);
+}
+
+.dark .exercise-card {
+  background: #1e293b;
+}
+
+.dark .exercise-info h3 {
+  color: #f1f5f9;
+}
+
+.dark .breathing-main,
+.dark .sidebar-card,
+.dark .sessions-list {
+  background: #1e293b;
+}
+
+.dark .phase-bar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark .breath-phase {
+  color: #60a5fa;
+}
+
+.dark .cycle-counter {
+  color: #94a3b8;
+}
+
+.dark .controls-row {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .cycle-btn {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+}
+
+.dark .cycle-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.dark .btn-pause,
+.dark .btn-stop {
+  background: #1e293b;
+}
+
+.dark .sidebar-card h3 {
+  color: #f1f5f9;
+}
+
+.dark .step-text,
+.dark .benefits-list li {
+  color: #cbd5e1;
+}
+
+.dark .session-mode {
+  color: #f1f5f9;
+}
+
+.dark .session-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Breathing */
+@media (max-width: 900px) {
+  .breathing-interface {
+    grid-template-columns: 1fr;
+  }
+
+  .breathe-stats-bar {
+    gap: 1.5rem;
+  }
+
+  .exercises-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .breathe-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .breathe-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .circle-wrapper {
+    width: 250px;
+    height: 250px;
+  }
+
+  .progress-ring-svg {
+    width: 250px;
+    height: 250px;
+  }
+
+  .breathing-circle {
+    inset: 12px;
+  }
+
+  .breath-timer {
+    font-size: 2.5rem;
+  }
+
+  .controls-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cycle-selector {
+    justify-content: center;
+  }
 }
 
 /* Responsive Journal */
