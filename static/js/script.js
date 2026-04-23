@@ -29,6 +29,32 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
+  // Premium Dark Mode Toggle
+  const darkToggle = document.getElementById("dark-toggle");
+  if (darkToggle) {
+    // Default to dark mode
+    body.classList.add("dark");
+    darkToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+    darkToggle.title = "Switch to Light";
+
+    // Load saved if different
+    if (localStorage.getItem("darkMode") === "disabled") {
+      body.classList.remove("dark");
+      darkToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+      darkToggle.title = "Switch to Dark";
+    }
+
+    darkToggle.onclick = () => {
+      body.classList.toggle("dark");
+      const isDark = body.classList.contains("dark");
+      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+      darkToggle.innerHTML = isDark
+        ? '<i class="fas fa-sun"></i> Light'
+        : '<i class="fas fa-moon"></i> Dark';
+      darkToggle.title = isDark ? "Switch to Light" : "Switch to Dark";
+    };
+  }
+
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {

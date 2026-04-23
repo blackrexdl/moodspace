@@ -1,27 +1,43 @@
-# MoodSpace Pro - Pro Features Implementation
+# MoodSpace Premium Theme Upgrade - TODO
 
-**Status:** 🚀 LIVE - Professional App Complete!
+## Plan Progress Tracker
 
-## ✅ Current Pro Features (tested via logs)
+### [x] 5. ✅ Final CSS polish (analyze/profile classes), full premium theme complete
 
-- [x] MoodSpace Pro branding + hamburger navbar (mobile perfect)
-- [x] Centered layouts, navbar-safe padding (8rem top)
-- [x] Big responsive forms (1.5rem pad, glass blur, lift focus)
-- [x] Pro cards/grids (300px cols, shadows, backdrop-filter)
-- [x] All pages tested: login/dashboard/analyze/camera/journal/breathe/profile/admin
+### [ ] 2. Update base layout (templates/layout.html)
 
-## 🔄 Pro Enhancements Plan (Confirmed - Implementing)
+### [ ] 2. Update base layout (templates/layout.html)
 
-1. **Journal**: Post form → auto emotion badge → save demo_posts
-2. **Dashboard**: Phone-like calendar + feed section
-3. **Breathe**: 4-exercise popup → live timer → save sessions
-4. **Camera**: App-like frame + "Capture Analyze"
-5. **Feed**: User-only post list w/emotion bars
-6. **Profile**: Responsive avatar + positioned change btn
-7. **Admin**: Pro tables/charts
+- Add Poppins font CDN
+- Dark mode toggle button in navbar
+- Refine logo/navbar for premium
 
-**Progress:** 0/7
+### [ ] 3. Clean & upgrade dashboard.html
 
-**Next:** app.py POST /post route → templates/journal.html form → test post → dashboard feed.
+- Remove all inline <style>
+- Use new CSS classes for posts/calendar
+- Add hero img if applicable
 
-**Run:** `python app.py` → http://127.0.0.1:5000 (debug hot-reload)
+### [ ] 4. Upgrade landing.html
+
+- Add hero with parallax/bg img (Landing.png)
+- Style emotions-grid/features
+
+### [ ] 5. Centralize other templates
+
+- profile.html: avatar/activity classes, remove inline JS if duped
+- journal.html, analyze.html: forms/emotions
+
+### [ ] 6. Enhance JS (static/js/script.js)
+
+- Dark mode toggle (localStorage, CSS .dark class)
+- Parallax hero effect
+- Page load animations
+
+### [ ] 7. Test & Verify
+
+- python app.py
+- Check all pages: desktop/mobile, dark/light, responsiveness
+- Lighthouse audit (perf/accessibility)
+
+**Next Action:** Implement step 1 (CSS upgrade)

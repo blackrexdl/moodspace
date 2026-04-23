@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MoodSpace - {% block title %}{% endblock %}</title>
+    <title>MoodSpace Pro - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/home.css">
     <link href="https://cdn.jsdelivr.net/npm/chart.js"></link>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,13 +13,16 @@
         <div class="nav-container">
 <a href="/" class="logo-link">
   <div class="logo">
-    <i class="fas fa-heartbeat fa-2x"></i>
-    <span>🧠✨</span>
+    <i class="fas fa-brain fa-2x"></i>
+    MoodSpace Pro
   </div>
 </a>
 
             <button class="mobile-menu-btn" onclick="toggleNavbar()">☰</button>
             <ul class="nav-links" id="navbar">
+                <button id="dark-toggle" class="nav-link" title="Toggle Theme">
+                  <i class="fas fa-moon"></i> Dark
+                </button>
                 <li><a href="/">Home</a></li>
                 {% if session.user %}
                 <li><a href="/dashboard">Feed</a></li>

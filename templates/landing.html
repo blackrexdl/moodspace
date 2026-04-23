@@ -1,61 +1,89 @@
 {% extends "layout.html" %} {% block content %}
+
 <div class="hero">
-  <h1>AI-Powered Mental Wellness Platform</h1>
-  <h2>Your Emotions, Understood</h2>
-  <p>
-    A social platform that puts your mental health first. Share your thoughts,
-    understand your emotions through AI, and connect with a supportive
-    community.
-  </p>
-  <div class="cta">
-    <a href="/login" class="btn-primary">Get Started Free</a>
-    <a href="/login" class="btn-secondary">Sign In</a>
+  <div class="hero-box">
+    <h1>Transform Your Mental Wellness Journey</h1>
+    <h2>AI-Powered Emotion Intelligence</h2>
+    <p>
+      Experience next-gen mental health support. Track moods in real-time, gain
+      AI insights, and join a community that truly understands you.
+    </p>
+    <div class="cta">
+      <a href="/login" class="btn-primary btn-lg animated-box"
+        ><i class="fas fa-rocket"></i> Get Started Free</a
+      >
+      <a href="/login" class="btn-secondary btn-lg animated-box"
+        ><i class="fas fa-sign-in-alt"></i> Sign In</a
+      >
+    </div>
   </div>
 </div>
 
-<div class="emotions-grid">
-  <div class="emotion">😊 Happy</div>
-  <div class="emotion">😢 Sad</div>
-  <div class="emotion">😠 Angry</div>
-  <div class="emotion">😰 Anxious</div>
-  <div class="emotion">😌 Calm</div>
-  <div class="emotion">🌟 Hopeful</div>
-</div>
-
-<div class="features">
-  <h2>Built for Your Wellbeing</h2>
-  <div class="feature-grid">
-    <div class="feature">
-      <h3>AI Emotion Detection</h3>
-      <p>
-        Every post is analyzed for emotional tone using advanced AI, helping you
-        understand the emotional landscape of your feed.
-      </p>
+<div class="container">
+  <div class="emotions-grid">
+    <div class="emotion">
+      <span class="emoji">😊</span>
+      <h4>Happy</h4>
     </div>
-    <div class="feature">
-      <h3>Smart Content Filtering</h3>
-      <p>
-        Filter your feed by emotion. See only calm posts when you need peace, or
-        hopeful posts when you need motivation.
-      </p>
+    <div class="emotion">
+      <span class="emoji">😢</span>
+      <h4>Sad</h4>
     </div>
-    <div class="feature">
-      <h3>Wellness Tracking</h3>
-      <p>
-        Track your emotional journey over time with beautiful charts and
-        insights that help you understand your patterns.
-      </p>
+    <div class="emotion">
+      <span class="emoji">😠</span>
+      <h4>Angry</h4>
     </div>
-    <div class="feature">
-      <h3>Mental Health First</h3>
-      <p>
-        Built with mental health at its core. Supportive community guidelines
-        and tools to promote wellbeing.
-      </p>
+    <div class="emotion">
+      <span class="emoji">😰</span>
+      <h4>Anxious</h4>
+    </div>
+    <div class="emotion">
+      <span class="emoji">😌</span>
+      <h4>Calm</h4>
+    </div>
+    <div class="emotion">
+      <span class="emoji">🌟</span>
+      <h4>Hopeful</h4>
     </div>
   </div>
-  <div class="cta-bottom">
-    <a href="/login" class="btn-primary large">Join MoodSpace Today</a>
+
+  <div class="features">
+    <h2>Built for Your Wellbeing</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>AI Emotion Detection</h3>
+        <p>
+          Every post is analyzed for emotional tone using advanced AI, helping
+          you understand the emotional landscape of your feed.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Smart Content Filtering</h3>
+        <p>
+          Filter your feed by emotion. See only calm posts when you need peace,
+          or hopeful posts when you need motivation.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Wellness Tracking</h3>
+        <p>
+          Track your emotional journey over time with beautiful charts and
+          insights that help you understand your patterns.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Mental Health First</h3>
+        <p>
+          Built with mental health at its core. Supportive community guidelines
+          and tools to promote wellbeing.
+        </p>
+      </div>
+    </div>
+    <div class="cta text-center">
+      <a href="/login" class="btn-primary btn-xl pulse"
+        ><i class="fas fa-crown"></i> Join MoodSpace Pro Today</a
+      >
+    </div>
   </div>
 </div>
 {% endblock %}
