@@ -1,135 +1,443 @@
-{% extends "layout.html" %} {% block title %}Profile - MoodSpace{% endblock %}
-{% block content %}
-<div class="profile-container">
-  <div class="card text-center profile-header">
-    <div class="profile-avatar-section">
-      <div class="avatar-upload">
+{% extends "layout.html" %} {% block title %}Profile - MoodSpace Pro{% endblock
+%} {% block content %}
+<div class="profile-page">
+  <!-- Profile Hero -->
+  <div class="profile-hero">
+    <div class="profile-cover"></div>
+    <div class="profile-hero-content">
+      <div class="avatar-wrapper">
         <img
           id="avatar-preview"
-          src="https://via.placeholder.com/150/f8f9fa/6c5ce7?text=👤"
+          src="https://ui-avatars.com/api/?name={{ user }}&background=1e3a8a&color=fff&size=200&rounded=true"
           alt="Profile Avatar"
           class="avatar-large"
         />
-        <input
-          type="file"
-          id="profile-image"
-          accept="image/*"
-          class="file-input"
-        />
-        <label for="profile-image" class="upload-btn">Change Photo</label>
-      </div>
-    </div>
-    <h2 id="profile-name">{{ user }}</h2>
-    <p class="member-since">Member since 2024 • Verified</p>
-  </div>
-
-  <div class="profile-content-grid">
-    <div class="card profile-edit">
-      <h3><i class="fas fa-edit"></i> Edit Profile</h3>
-      <form class="profile-form">
-        <div class="form-group">
-          <label>Full Name</label>
+        <div class="avatar-overlay">
+          <label
+            for="profile-image"
+            class="avatar-edit-btn"
+            title="Change Photo"
+          >
+            <i class="fas fa-camera"></i>
+          </label>
           <input
-            type="text"
-            id="profile-name-input"
-            placeholder="Enter your full name"
-            required
+            type="file"
+            id="profile-image"
+            accept="image/*"
+            class="file-input"
           />
         </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            id="profile-email"
-            placeholder="your@email.com"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label>Bio</label>
-          <textarea
-            id="profile-bio"
-            placeholder="Tell us about yourself and your wellness journey..."
-            rows="4"
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <label>Location</label>
-          <input
-            type="text"
-            id="profile-location"
-            placeholder="City, Country"
-          />
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Save Changes</button>
-          <button type="reset" class="btn-secondary">Reset</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="stats-grid">
-      <div class="card stat-card">
-        <div class="stat-number">12</div>
-        <div class="stat-label">Day Streak</div>
       </div>
-      <div class="card stat-card">
-        <div class="stat-number">47</div>
-        <div class="stat-label">Check-ins</div>
-      </div>
-      <div class="card stat-card">
-        <div class="stat-number">23</div>
-        <div class="stat-label">Breathing Sessions</div>
-      </div>
-      <div class="card stat-card">
-        <div class="stat-number">156</div>
-        <div class="stat-label">Total Posts</div>
+      <div class="profile-titles">
+        <h1 id="display-name">{{ user }}</h1>
+        <p class="profile-tagline" id="display-bio">
+          Your wellness journey starts here
+        </p>
+        <div class="profile-meta">
+          <span class="meta-badge"
+            ><i class="fas fa-shield-alt"></i> Verified</span
+          >
+          <span class="meta-badge"
+            ><i class="fas fa-calendar"></i> Member since
+            <span id="member-since">2024</span></span
+          >
+          <span class="meta-badge"
+            ><i class="fas fa-map-marker-alt"></i>
+            <span id="display-location">Earth</span></span
+          >
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="card recent-activity">
-    <h3>Recent Activity</h3>
-    <div class="activity-list">
-      <div class="activity-item">
-        <span class="activity-icon">🌬️</span>
-        <span>Completed 8-cycle breathing session</span>
-        <span class="activity-time">2 hours ago</span>
+  <!-- Stats Bar -->
+  <div class="profile-stats-bar">
+    <div class="pstat">
+      <div class="pstat-num" id="stat-streak">0</div>
+      <div class="pstat-label">Day Streak</div>
+    </div>
+    <div class="pstat">
+      <div class="pstat-num" id="stat-posts">0</div>
+      <div class="pstat-label">Posts</div>
+    </div>
+    <div class="pstat">
+      <div class="pstat-num" id="stat-breathe">0</div>
+      <div class="pstat-label">Breaths</div>
+    </div>
+    <div class="pstat">
+      <div class="pstat-num" id="stat-checkins">0</div>
+      <div class="pstat-label">Check-ins</div>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="profile-layout">
+    <!-- Left Sidebar -->
+    <div class="profile-sidebar">
+      <div class="sidebar-nav">
+        <button class="nav-tab active" data-tab="overview">
+          <i class="fas fa-user"></i> Overview
+        </button>
+        <button class="nav-tab" data-tab="stats">
+          <i class="fas fa-chart-line"></i> Insights
+        </button>
+        <button class="nav-tab" data-tab="settings">
+          <i class="fas fa-cog"></i> Settings
+        </button>
       </div>
-      <div class="activity-item">
-        <span class="activity-icon">📝</span>
-        <span>Added journal entry "Feeling grateful"</span>
-        <span class="activity-time">1 day ago</span>
+
+      <div class="sidebar-card mood-overview">
+        <h3><i class="fas fa-smile"></i> Mood Overview</h3>
+        <div class="mood-distribution" id="mood-distribution">
+          <div class="mood-item">
+            <div class="mood-dot happy"></div>
+            <span>Happy</span>
+            <div class="mood-bar">
+              <div class="mood-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="mood-item">
+            <div class="mood-dot calm"></div>
+            <span>Calm</span>
+            <div class="mood-bar">
+              <div class="mood-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="mood-item">
+            <div class="mood-dot anxious"></div>
+            <span>Anxious</span>
+            <div class="mood-bar">
+              <div class="mood-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="mood-item">
+            <div class="mood-dot sad"></div>
+            <span>Sad</span>
+            <div class="mood-bar">
+              <div class="mood-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- more items -->
+
+      <div class="sidebar-card achievements">
+        <h3><i class="fas fa-trophy"></i> Achievements</h3>
+        <div class="achievement-list" id="achievement-list">
+          <div class="achievement locked" data-achievement="first-post">
+            <div class="achievement-icon">📝</div>
+            <div class="achievement-info">
+              <div class="achievement-name">First Post</div>
+              <div class="achievement-desc">
+                Create your first journal entry
+              </div>
+            </div>
+          </div>
+          <div class="achievement locked" data-achievement="streak-7">
+            <div class="achievement-icon">🔥</div>
+            <div class="achievement-info">
+              <div class="achievement-name">Week Warrior</div>
+              <div class="achievement-desc">7 day streak</div>
+            </div>
+          </div>
+          <div class="achievement locked" data-achievement="breathe-10">
+            <div class="achievement-icon">🧘</div>
+            <div class="achievement-info">
+              <div class="achievement-name">Breathing Master</div>
+              <div class="achievement-desc">Complete 10 breathing sessions</div>
+            </div>
+          </div>
+          <div class="achievement locked" data-achievement="analyzer">
+            <div class="achievement-icon">🧠</div>
+            <div class="achievement-info">
+              <div class="achievement-name">Emotion Analyst</div>
+              <div class="achievement-desc">Analyze 5 emotions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="profile-main">
+      <!-- Overview Tab -->
+      <div class="tab-panel active" id="tab-overview">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2><i class="fas fa-id-card"></i> About Me</h2>
+            <button class="btn-edit" id="btn-edit-profile">
+              <i class="fas fa-pen"></i> Edit
+            </button>
+          </div>
+          <div class="profile-view" id="profile-view">
+            <div class="info-row">
+              <span class="info-label">Full Name</span>
+              <span class="info-value" id="view-name">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email</span>
+              <span class="info-value" id="view-email">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Bio</span>
+              <span class="info-value" id="view-bio">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Location</span>
+              <span class="info-value" id="view-location">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Occupation</span>
+              <span class="info-value" id="view-occupation">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Interests</span>
+              <span class="info-value" id="view-interests">-</span>
+            </div>
+          </div>
+
+          <form class="profile-form" id="profile-form" style="display: none">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  id="profile-name-input"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  id="profile-email"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Bio</label>
+              <textarea
+                id="profile-bio"
+                placeholder="Tell us about yourself and your wellness journey..."
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Location</label>
+                <input
+                  type="text"
+                  id="profile-location"
+                  placeholder="City, Country"
+                />
+              </div>
+              <div class="form-group">
+                <label>Occupation</label>
+                <input
+                  type="text"
+                  id="profile-occupation"
+                  placeholder="What do you do?"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Interests (comma separated)</label>
+              <input
+                type="text"
+                id="profile-interests"
+                placeholder="Meditation, Yoga, Reading..."
+              />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+              <button type="button" class="btn-secondary" id="btn-cancel-edit">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2><i class="fas fa-history"></i> Recent Activity</h2>
+          </div>
+          <div class="activity-timeline" id="activity-timeline">
+            <div class="empty-activity">
+              <i class="fas fa-wind"></i>
+              <p>No activity yet. Start your wellness journey!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Tab -->
+      <div class="tab-panel" id="tab-stats">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2><i class="fas fa-chart-pie"></i> Wellness Insights</h2>
+          </div>
+          <div class="insights-grid">
+            <div class="insight-card">
+              <div
+                class="insight-icon"
+                style="background: rgba(59, 130, 246, 0.15); color: #3b82f6"
+              >
+                <i class="fas fa-heart"></i>
+              </div>
+              <div class="insight-info">
+                <div class="insight-value" id="insight-mood">Neutral</div>
+                <div class="insight-label">Dominant Mood</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div
+                class="insight-icon"
+                style="background: rgba(16, 185, 129, 0.15); color: #10b981"
+              >
+                <i class="fas fa-fire"></i>
+              </div>
+              <div class="insight-info">
+                <div class="insight-value" id="insight-streak">0 days</div>
+                <div class="insight-label">Current Streak</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div
+                class="insight-icon"
+                style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6"
+              >
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="insight-info">
+                <div class="insight-value" id="insight-time">0 min</div>
+                <div class="insight-label">Mindful Minutes</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div
+                class="insight-icon"
+                style="background: rgba(245, 158, 11, 0.15); color: #f59e0b"
+              >
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <div class="insight-info">
+                <div class="insight-value" id="insight-goal">0%</div>
+                <div class="insight-label">Weekly Goal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2><i class="fas fa-chart-bar"></i> Weekly Progress</h2>
+          </div>
+          <div class="weekly-chart" id="weekly-chart">
+            <div class="chart-bars">
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Mon" style="height: 0%"></div>
+                <span>Mon</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Tue" style="height: 0%"></div>
+                <span>Tue</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Wed" style="height: 0%"></div>
+                <span>Wed</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Thu" style="height: 0%"></div>
+                <span>Thu</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Fri" style="height: 0%"></div>
+                <span>Fri</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Sat" style="height: 0%"></div>
+                <span>Sat</span>
+              </div>
+              <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-day="Sun" style="height: 0%"></div>
+                <span>Sun</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2><i class="fas fa-sliders-h"></i> Preferences</h2>
+          </div>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-name">Daily Reminders</div>
+                <div class="setting-desc">Get reminded to check in daily</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-reminders" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-name">Sound Effects</div>
+                <div class="setting-desc">
+                  Play sounds during breathing exercises
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-sound" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-name">Weekly Report</div>
+                <div class="setting-desc">Receive weekly wellness summary</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-report" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-name">Privacy Mode</div>
+                <div class="setting-desc">Hide your activity from others</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-privacy" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card danger-zone">
+          <div class="panel-header">
+            <h2><i class="fas fa-exclamation-triangle"></i> Danger Zone</h2>
+          </div>
+          <div class="danger-actions">
+            <button class="btn-danger" id="btn-clear-data">
+              <i class="fas fa-trash"></i> Clear All Local Data
+            </button>
+            <button class="btn-danger" id="btn-reset-profile">
+              <i class="fas fa-undo"></i> Reset Profile
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Load saved profile
-    const savedProfile = localStorage.getItem("userProfile");
-    if (savedProfile) {
-      const profile = JSON.parse(savedProfile);
-      document.getElementById("profile-name-input").value = profile.name || "";
-      document.getElementById("profile-email").value = profile.email || "";
-      document.getElementById("profile-bio").value = profile.bio || "";
-    }
-
-    // Avatar preview
-    document
-      .getElementById("profile-image")
-      .addEventListener("change", function (e) {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            document.getElementById("avatar-preview").src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-  });
-</script>
+<script src="/static/js/profile.js"></script>
 {% endblock %}
