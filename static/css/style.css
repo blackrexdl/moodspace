@@ -97,6 +97,8 @@ body {
 }
 
 .logo {
+  width: auto;
+  
   font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 800;
   font-variation-settings: "wght" 800;
@@ -121,6 +123,7 @@ body {
 }
 
 .logo i {
+  width: auto;
   animation: heartbeat 2s infinite;
 }
 
@@ -143,7 +146,7 @@ body {
   }
 }
 
-.nav-actions {
+.nav-right {
   display: flex;
   align-items: center;
   gap: 1rem;

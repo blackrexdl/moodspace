@@ -11,19 +11,19 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-<a href="/" class="logo-link">
-  <div class="logo">
-    <i class="fas fa-brain fa-2x"></i>
-     MoodSpace Pro
-  </div>
-</a>
+            <a href="/" class="logo-link">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>MoodSpace</span>
+                </div>
+            </a>
 
-            <div class="nav-actions">
-                <button id="dark-toggle" class="nav-theme-btn" title="Toggle Theme">
-                  <i class="fas fa-moon"></i>
+            <div class="nav-right">
+                <button id="dark-toggle" class="nav-theme-btn" title="Toggle Theme" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
                 </button>
                 <button class="mobile-menu-btn" onclick="toggleNavbar()" aria-label="Toggle menu">
-                  <i class="fas fa-bars"></i>
+                    <i class="fas fa-bars"></i>
                 </button>
                 <ul class="nav-links" id="navbar">
                     <li><a href="/" class="nav-item">Home</a></li>
@@ -43,13 +43,14 @@
                     {% endif %}
                 </ul>
             </div>
-        </div>
     </nav>
-<main class="page-container">
+
+    <main class="page-container">
         <div class="container">
             {% block content %}{% endblock %}
         </div>
     </main>
+
     <script src="/static/js/script.js"></script>
 </body>
 </html>
