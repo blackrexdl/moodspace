@@ -1,150 +1,205 @@
-{% extends "layout.html" %} {% block title %}Feed - MoodSpace Pro{% endblock %}
-{% block content %}
+{% extends "layout.html" %} {% block title %}Dashboard - MoodSpace Pro{%
+endblock %} {% block content %}
 <div class="dashboard">
-  <div class="welcome card">
-    <h1>Welcome back, {{ user }}! 👋</h1>
-    <p>Your personalized feed & wellness dashboard</p>
-    <a href="/journal" class="btn-primary">✍️ New Post</a>
-  </div>
-
-  <div class="stats-grid progress-grid">
-    <div class="card stat-card streak">
-      <div class="stat-number">🔥 7</div>
-      <div class="stat-label">Day Streak</div>
-    </div>
-    <div class="card stat-card">
-      <div class="stat-number">42</div>
-      <div class="stat-label">Check-ins</div>
-    </div>
-    <div class="card stat-card">
-      <div class="stat-number">15</div>
-      <div class="stat-label">Posts</div>
-    </div>
-    <div class="card stat-card">
-      <div class="stat-number">23</div>
-      <div class="stat-label">Sessions</div>
-    </div>
-  </div>
-
-  <div class="calendar-section card">
-    <h3>📅 Mood Calendar</h3>
-    <div class="calendar-grid">
-      <div class="calendar-header">
-        <button class="calendar-nav">‹</button>
-        <h4>April 2026</h4>
-        <button class="calendar-nav">›</button>
+  <!-- Welcome Hero -->
+  <div class="dash-hero">
+    <div class="dash-hero-content">
+      <div class="user-welcome">
+        <img
+          src="https://ui-avatars.com/api/?name={{ user }}&background=1e3a8a&color=fff&size=80&rounded=true"
+          class="user-avatar-large"
+          alt="{{ user }}"
+        />
+        <div class="welcome-text">
+          <h1>Welcome back, {{ user }}! 👋</h1>
+          <p>Your personalized wellness dashboard</p>
+        </div>
       </div>
-      <div class="calendar-days">
-        <div class="day-header">S</div>
-        <div class="day-header">M</div>
-        <div class="day-header">T</div>
-        <div class="day-header">W</div>
-        <div class="day-header">T</div>
-        <div class="day-header">F</div>
-        <div class="day-header">S</div>
-        <div class="calendar-day neutral">1</div>
-        <div class="calendar-day happy today">2</div>
-        <div class="calendar-day calm">3</div>
-        <div class="calendar-day anxious">4</div>
-        <div class="calendar-day happy">5</div>
-        <div class="calendar-day neutral">6</div>
-        <div class="calendar-day sad">7</div>
-        <div class="calendar-day happy">8</div>
-        <div class="calendar-day calm">9</div>
-        <div class="calendar-day anxious">10</div>
-        <div class="calendar-day neutral">11</div>
-        <div class="calendar-day happy">12</div>
-        <div class="calendar-day calm">13</div>
-        <div class="calendar-day neutral">14</div>
-        <div class="calendar-day sad">15</div>
-        <div class="calendar-day happy">16</div>
-        <div class="calendar-day calm">17</div>
-        <div class="calendar-day neutral">18</div>
-        <div class="calendar-day anxious">19</div>
-        <div class="calendar-day happy">20</div>
-        <div class="calendar-day calm">21</div>
-        <div class="calendar-day neutral">22</div>
-        <div class="calendar-day happy today">23</div>
-        <div class="calendar-day calm">24</div>
-        <div class="calendar-day neutral">25</div>
-        <div class="calendar-day sad">26</div>
-        <div class="calendar-day happy">27</div>
-        <div class="calendar-day calm">28</div>
-        <div class="calendar-day neutral">29</div>
-        <div class="calendar-day anxious">30</div>
+      <a href="/journal" class="btn-primary dash-cta">
+        <i class="fas fa-pen"></i> New Post
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card premium">
+      <div class="stat-icon fire">
+        <i class="fas fa-fire"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+    </div>
+    <div class="stat-card premium">
+      <div class="stat-icon check">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">42</div>
+        <div class="stat-label">Check-ins</div>
+      </div>
+    </div>
+    <div class="stat-card premium">
+      <div class="stat-icon post">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">15</div>
+        <div class="stat-label">Posts</div>
+      </div>
+    </div>
+    <div class="stat-card premium">
+      <div class="stat-icon session">
+        <i class="fas fa-spa"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">23</div>
+        <div class="stat-label">Sessions</div>
       </div>
     </div>
   </div>
 
-  <div class="tools-grid">
-    <a href="/analyze" class="tool-card">
-      <i class="fas fa-brain"></i>
-      <h4>Analyze</h4>
-      <p>Text emotion</p>
-    </a>
-    <a href="/camera" class="tool-card">
-      <i class="fas fa-camera"></i>
-      <h4>Camera</h4>
-      <p>Face scan</p>
-    </a>
-    <a href="/breathe" class="tool-card">
-      <i class="fas fa-lungs"></i>
-      <h4>Breathe</h4>
-      <p>Relax now</p>
-    </a>
-    <a href="/journal" class="tool-card">
-      <i class="fas fa-edit"></i>
-      <h4>Journal</h4>
-      <p>New post</p>
-    </a>
+  <!-- Tools Grid -->
+  <div class="tools-section">
+    <h2 class="section-title"><i class="fas fa-tools"></i> Wellness Tools</h2>
+    <div class="tools-grid">
+      <a href="/analyze" class="tool-card premium">
+        <div class="tool-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h4>Analyze</h4>
+        <p>Text emotion detection</p>
+      </a>
+      <a href="/camera" class="tool-card premium">
+        <div class="tool-icon">
+          <i class="fas fa-camera"></i>
+        </div>
+        <h4>Camera</h4>
+        <p>Face emotion scan</p>
+      </a>
+      <a href="/breathe" class="tool-card premium">
+        <div class="tool-icon">
+          <i class="fas fa-lungs"></i>
+        </div>
+        <h4>Breathe</h4>
+        <p>Relaxation exercises</p>
+      </a>
+      <a href="/journal" class="tool-card premium">
+        <div class="tool-icon">
+          <i class="fas fa-edit"></i>
+        </div>
+        <h4>Journal</h4>
+        <p>Write new post</p>
+      </a>
+    </div>
   </div>
 
-  <div class="feed-section card">
-    <div class="feed-header">
-      <h3>📱 Your Feed</h3>
-      <a href="/journal" class="btn-primary btn-sm">✨ New Post</a>
+  <!-- Calendar & Feed Split -->
+  <div class="dash-split">
+    <!-- Mood Calendar -->
+    <div class="calendar-section">
+      <h2 class="section-title">
+        <i class="fas fa-calendar-alt"></i> Mood Calendar
+      </h2>
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button class="calendar-nav">‹</button>
+          <h4>April 2026</h4>
+          <button class="calendar-nav">›</button>
+        </div>
+        <div class="calendar-days">
+          <div class="day-header">S</div>
+          <div class="day-header">M</div>
+          <div class="day-header">T</div>
+          <div class="day-header">W</div>
+          <div class="day-header">T</div>
+          <div class="day-header">F</div>
+          <div class="day-header">S</div>
+          <div class="calendar-day neutral">1</div>
+          <div class="calendar-day happy today">2</div>
+          <div class="calendar-day calm">3</div>
+          <div class="calendar-day anxious">4</div>
+          <div class="calendar-day happy">5</div>
+          <div class="calendar-day neutral">6</div>
+          <div class="calendar-day sad">7</div>
+          <div class="calendar-day happy">8</div>
+          <div class="calendar-day calm">9</div>
+          <div class="calendar-day anxious">10</div>
+          <div class="calendar-day neutral">11</div>
+          <div class="calendar-day happy">12</div>
+          <div class="calendar-day calm">13</div>
+          <div class="calendar-day neutral">14</div>
+          <div class="calendar-day sad">15</div>
+          <div class="calendar-day happy">16</div>
+          <div class="calendar-day calm">17</div>
+          <div class="calendar-day neutral">18</div>
+          <div class="calendar-day anxious">19</div>
+          <div class="calendar-day happy">20</div>
+          <div class="calendar-day calm">21</div>
+          <div class="calendar-day neutral">22</div>
+          <div class="calendar-day happy today">23</div>
+          <div class="calendar-day calm">24</div>
+          <div class="calendar-day neutral">25</div>
+          <div class="calendar-day sad">26</div>
+          <div class="calendar-day happy">27</div>
+          <div class="calendar-day calm">28</div>
+          <div class="calendar-day neutral">29</div>
+          <div class="calendar-day anxious">30</div>
+        </div>
+      </div>
     </div>
-    <div class="posts">
-      {% for post in demo_posts[-6:] %}
-      <article class="card feed-post">
-        <div class="post-header">
-          <img
-            src="https://ui-avatars.com/api/?name={{ post.user }}&background=6c5ce7&color=fff&size=40&rounded=true"
-            class="post-avatar"
-            alt="{{ post.user }}"
-          />
-          <div>
-            <strong>{{ post.user }}</strong>
-            <small>{{ post.date }}</small>
+
+    <!-- Feed -->
+    <div class="feed-section">
+      <div class="feed-header">
+        <h2 class="section-title"><i class="fas fa-stream"></i> Your Feed</h2>
+        <a href="/journal" class="btn-primary btn-sm">
+          <i class="fas fa-plus"></i> New
+        </a>
+      </div>
+      <div class="posts">
+        {% for post in demo_posts[-6:] %}
+        <article class="feed-post">
+          <div class="post-header">
+            <img
+              src="https://ui-avatars.com/api/?name={{ post.user }}&background=1e3a8a&color=fff&size=40&rounded=true"
+              class="post-avatar"
+              alt="{{ post.user }}"
+            />
+            <div class="post-meta">
+              <strong>{{ post.user }}</strong>
+              <small>{{ post.date }}</small>
+            </div>
+            <span class="emotion-badge {{ post.emotion|lower }}">
+              {{ post.emotion }}
+            </span>
           </div>
-          <span class="emotion-badge {{ post.emotion|lower }}">
-            {{ post.emotion }}
-          </span>
-        </div>
-        <p class="post-text">{{ post.text }}</p>
-        <div class="post-footer">
-          <button class="post-action like-btn">
-            <i class="far fa-thumbs-up"></i> {{ post.likes }}
-          </button>
-          <button class="post-action">
-            <i class="far fa-comment"></i> Comment
-          </button>
-          <button class="post-action">
-            <i class="fas fa-share"></i> Share
-          </button>
-          <span class="confidence">{{ post.confidence }}% accurate</span>
-        </div>
-      </article>
-      {% endfor %}
+          <p class="post-text">{{ post.text }}</p>
+          <div class="post-footer">
+            <button class="post-action">
+              <i class="far fa-thumbs-up"></i> {{ post.likes }}
+            </button>
+            <button class="post-action">
+              <i class="far fa-comment"></i>
+            </button>
+            <button class="post-action">
+              <i class="fas fa-share"></i>
+            </button>
+            <span class="confidence">{{ post.confidence }}% accurate</span>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% if demo_posts|length == 0 %}
+      <div class="empty-feed">
+        <i class="fas fa-feather-alt fa-4x"></i>
+        <h3>No posts yet</h3>
+        <p>Share your first mood post via <a href="/journal">Journal</a></p>
+      </div>
+      {% endif %}
     </div>
-    {% if demo_posts|length == 0 %}
-    <div class="empty-feed">
-      <i class="fas fa-feather-alt fa-4x"></i>
-      <h3>No posts yet</h3>
-      <p>Share your first mood post via <a href="/journal">Journal</a></p>
-    </div>
-    {% endif %}
   </div>
 </div>
-
 {% endblock %}

@@ -57,6 +57,33 @@ def login():
             error = "Invalid credentials. Try: PriyaSharma/pass123"
     return render_template("login.html", error=error)
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    reg_error = None
+    reg_success = None
+    if request.method == "POST":
+        username = request.form["username"].strip()
+        email = request.form.get("email", "").strip()
+        password = request.form["password"].strip()
+        confirm = request.form.get("confirm_password", "").strip()
+        
+        if not username or not password:
+            reg_error = "Username and password are required"
+        elif username in app.users:
+            reg_error = "Username already exists"
+        elif password != confirm:
+            reg_error = "Passwords do not match"
+        elif len(password) < 4:
+            reg_error = "Password must be at least 4 characters"
+        else:
+            # Add to users
+            app.users[username] = password
+            with open("users.json", "w") as f:
+                json.dump(app.users, f, indent=2)
+            reg_success = "Account created! Please sign in."
+    
+    return render_template("login.html", reg_error=reg_error, reg_success=reg_success)
+
 @app.route("/dashboard")
 def dashboard():
     if "user" not in session:
