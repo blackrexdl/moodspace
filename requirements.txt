@@ -1,9 +1,7 @@
 flask
-flask-sqlalchemy
+gunicorn
 scikit-learn
+numpy
 pandas
-nltk
-deepface
 opencv-python-headless
 pillow
-
