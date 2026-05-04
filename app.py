@@ -13,6 +13,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 db = SQLAlchemy(app)
 
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+with app.app_context():
+    db.create_all()
+
 # Models
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,11 +36,17 @@ class Checkin(db.Model):
 
 # Load demo data
 def load_demo_data():
-    with open("users.json") as f:
-        app.users = json.load(f)
-    
-    with open("data/demo_posts.json") as f:
-        app.demo_posts = json.load(f)
+    try:
+        with open("users.json") as f:
+            app.users = json.load(f)
+    except:
+        app.users = {"admin": "admin123"}
+
+    try:
+        with open("data/demo_posts.json") as f:
+            app.demo_posts = json.load(f)
+    except:
+        app.demo_posts = []
 
 load_demo_data()
 
@@ -230,8 +241,5 @@ def not_found(error):
     return render_template("landing.html"), 404
 
 if __name__ == "__main__":
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
 
